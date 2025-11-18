@@ -1,10 +1,13 @@
 [project]
 name = "sync-settings-dotenv"
-version = "0.0.1"
+version = "0.0.2"
+authors = [{ name = "Vu LE", email = "ledkvu@gmail.com" }]
 description = "A CLI tool to export environment variables from Python settings files."
 readme = "README.md"
+license = "MIT"
+keywords = ["export", "dotenv", "cli", "pydantic", "settings"]
 requires-python = ">=3.11"
-dependencies = ["typer>=0.20.0"]
+dependencies = ["pydantic-settings>=2.12.0", "typer>=0.20.0"]
 
 [dependency-groups]
 dev = ["pyrefly==0.42.0", "pytest==9.0.1", "ruff==0.14.5"]
@@ -12,22 +15,24 @@ dev = ["pyrefly==0.42.0", "pytest==9.0.1", "ruff==0.14.5"]
 [project.scripts]
 sync-dotenv = "sync_settings_dotenv.main:main"
 
+[project.urls]
+Repository = "https://github.com/ldkv/sync-settings-dotenv"
+Documentation = "https://github.com/ldkv/sync-settings-dotenv/blob/main/README.md"
+Changelog = "https://github.com/ldkv/sync-settings-dotenv/blob/main/CHANGELOG.md"
+
 [build-system]
 requires = ["uv_build>=0.9.5,<0.10.0"]
 build-backend = "uv_build"
 
-
+# Configuration for linter
 [tool.ruff]
 line-length = 120
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "C", "Q", "B", "A", "PL", "I", "RET"]
-ignore = [
-    "B008", # Incompatible with typer
-]
-
-[tool.pyrefly]
-project-includes = ["**/*.py*", "**/*.ipynb"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
+
+[tool.pyrefly]
+project-includes = ["**/*.py*"]
