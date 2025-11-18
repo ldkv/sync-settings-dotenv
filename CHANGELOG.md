@@ -15,6 +15,12 @@ https://keepachangelog.com/en/1.0.0/
 
 ### Added
 
+- Github actions to automate publishing to PyPI as Trusted Publisher
+
+## [0.0.2] - 2025-11-18
+
+### Added
+
 - Project management with `uv`
 - Linter & unit tests CI pipeline with GitHub Actions
 - `pyproject.toml` configuration file
