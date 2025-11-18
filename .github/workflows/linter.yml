@@ -2,12 +2,13 @@ name: code-quality
 
 on:
   pull_request:
+  workflow_call:
   push:
     branches:
       - main
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref == 'refs/heads/main' && github.sha || github.ref }}
+  group: linter-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

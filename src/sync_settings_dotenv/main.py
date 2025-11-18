@@ -6,11 +6,7 @@ from dotenv import dotenv_values
 from pydantic_settings import BaseSettings
 from rich import print as rprint
 
-from sync_settings_dotenv.utils import (
-    generate_dotenv_file,
-    import_class_from_module,
-    serialize_default_env_vars,
-)
+from sync_settings_dotenv.utils import generate_dotenv_file, import_class_from_module, serialize_default_env_vars
 
 
 def update_env_file(settings_model: Type[BaseSettings], env_path: Path, overwrite: bool = False) -> None:

@@ -73,9 +73,9 @@ check-all: dependencies-check code-quality test ## Run all checks and tests
 
 ##@ Release
 build: ## Build the package
-	uv build
+	uv build --clear
 
-publish: env ## Publish the package to PyPI
+publish: env build ## Publish the package to PyPI
 	uv publish
 
 local-install: ## Install current version locally for testing
