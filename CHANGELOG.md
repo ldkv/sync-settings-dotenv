@@ -21,3 +21,5 @@ https://keepachangelog.com/en/1.0.0/
 - Linting with `ruff`
 - Type checking with `pyrefly`
 - `Makefile` for common tasks
+- CLI command to sync settings to dotenv file
+- Compatibility with `pydantic-settings` BaseSettings models

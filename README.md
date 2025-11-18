@@ -16,17 +16,17 @@ Currently only supports BaseSettings model from [pydantic-settings](https://docs
 The tool can be installed using [uv tool](https://docs.astral.sh/uv/guides/tools/):
 
 ```bash
-uv tool install "git+https://github.com/ldkv/sync-settings-dotenv@main"
+uv tool install sync-settings-dotenv
 ```
 
-It will be available as `sync-settings-dotenv` command in your terminal.
+After installation, it will be available as `sync-dotenv` command in your terminal.
 
 ## Usage
 
-For more details on usage, run:
+For details on usage, run:
 
 ```bash
-sync-settings-dotenv --help
+sync-dotenv --help
 ```
 
 ## Update and Uninstallation

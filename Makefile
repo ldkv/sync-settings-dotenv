@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 
-.PHONY: help
+.PHONY: help env
 
 .DEFAULT_GOAL := help
 
@@ -10,7 +10,18 @@ help: ## show help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m\033[0m\n"} /^[$$()% 0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 
+# Function to export environment variables from a file
+define export_env
+	@echo "--- Exporting: $(1)"
+	$(eval include $(1))
+    $(eval export)
+endef
+
+
 ##@ Dependency Management
+env: ## Export environment variables from .env
+	$(call export_env, .env)
+
 install-uv: ## Install uv if not found
 	@if ! uv -V ; then \
         echo "uv not found, installing..."; \
@@ -61,6 +72,12 @@ check-all: dependencies-check code-quality test ## Run all checks and tests
 
 
 ##@ Release
+build: ## Build the package
+	uv build
+
+publish: env ## Publish the package to PyPI
+	uv publish
+
 local-install: ## Install current version locally for testing
 	uv tool install .
 
