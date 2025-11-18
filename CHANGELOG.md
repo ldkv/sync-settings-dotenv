@@ -13,6 +13,8 @@ https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-11-18
+
 ### Added
 
 - Support sync between dotenv files

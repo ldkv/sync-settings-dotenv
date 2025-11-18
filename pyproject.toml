@@ -1,6 +1,6 @@
 [project]
 name = "sync-settings-dotenv"
-version = "0.1.0"
+version = "0.2.0"
 authors = [{ name = "Vu LE", email = "ledkvu@gmail.com" }]
 description = "A CLI tool to export environment variables from Python settings files."
 readme = "README.md"
@@ -10,7 +10,7 @@ requires-python = ">=3.11"
 dependencies = ["pydantic-settings>=2.12.0", "typer>=0.20.0"]
 
 [dependency-groups]
-dev = ["pyrefly==0.42.0", "pytest==9.0.1", "ruff==0.14.5"]
+dev = ["pyrefly==0.42.1", "pytest==9.0.1", "ruff==0.14.5"]
 
 [project.scripts]
 sync-settings-dotenv = "sync_settings_dotenv.main:app"
