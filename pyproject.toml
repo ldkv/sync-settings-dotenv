@@ -13,7 +13,7 @@ dependencies = ["pydantic-settings>=2.12.0", "typer>=0.20.0"]
 dev = ["pyrefly==0.42.0", "pytest==9.0.1", "ruff==0.14.5"]
 
 [project.scripts]
-sync-dotenv = "sync_settings_dotenv.main:main"
+sync-settings-dotenv = "sync_settings_dotenv.main:app"
 
 [project.urls]
 Repository = "https://github.com/ldkv/sync-settings-dotenv"

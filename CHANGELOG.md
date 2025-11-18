@@ -15,6 +15,21 @@ https://keepachangelog.com/en/1.0.0/
 
 ### Added
 
+- Support sync between dotenv files
+- Resolve required fields without default values
+- Allow to generate without header comment
+
+### Changed
+
+- Rename CLI command to `sync-settings-dotenv` instead of `sync-dotenv` to avoid confusion
+- Generate backups any time the target file is modified
+- Update README with more detailed usage instructions
+- Minor refactoring of utility functions
+
+## [0.1.0] - 2025-11-18
+
+### Added
+
 - Github actions to automate publishing to PyPI as Trusted Publisher
 
 ## [0.0.2] - 2025-11-18
