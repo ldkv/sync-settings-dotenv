@@ -1,3 +1,4 @@
+import importlib.metadata
 from pathlib import Path
 from typing import Annotated
 
@@ -10,8 +11,18 @@ from sync_settings_dotenv.utils import generate_dotenv_file, generate_source_env
 app = typer.Typer(help="A CLI tool to sync environment variables in dotenv files or from Python settings files.")
 
 
+def version_callback(value: bool):
+    if not value:
+        return
+
+    tool_name = "sync-settings-dotenv"
+    version = importlib.metadata.version(tool_name)
+    print(f"{tool_name} version: {version}")
+    raise typer.Exit()
+
+
 @app.command()
-def sync_settings_dotenv(
+def sync_settings_dotenv(  # noqa: PLR0913
     src_path: Annotated[
         str,
         typer.Argument(
@@ -38,6 +49,7 @@ def sync_settings_dotenv(
         "--header/--no-header",
         help="Include a header comment in the .env file.",
     ),
+    version: Annotated[bool | None, typer.Option("--version", callback=version_callback, is_eager=True)] = None,
 ):
     """
     Sync environment variables from a source to a target .env file.

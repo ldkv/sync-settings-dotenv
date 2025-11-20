@@ -67,6 +67,14 @@ sync-settings-dotenv /path/to/.env.example /path/to/.env
 
 It works the same way as syncing from a Python settings file.
 
+## Known limitations
+
+This approach only works with `BaseSettings` models from `pydantic-settings`.
+
+The tool will execute the module to import the settings class, so any side effects in the module will be triggered.
+
+It is assumed that the settings class can be instantiated without any required parameters other than those provided inside the module itself or via environment variables. Otherwise it will raise an error during execution.
+
 ## Update and Uninstallation
 
 To upgrade to the latest version, run:

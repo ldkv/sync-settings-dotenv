@@ -13,6 +13,17 @@ https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [0.2.1] - 2025-11-20
+
+### Added
+
+- CLI option to show version
+- Known limitations section in README
+
+### Fixed
+
+- No longer overwrite with identical keys/values
+
 ## [0.2.0] - 2025-11-18
 
 ### Added
