@@ -57,6 +57,7 @@ def test_sync_settings_dotenv(mock_shutil: Mock, tmp_path: Path):
     DummySettings.assert_env_content(content)
 
     # Call again without any changes; no overwrite should happen
+    input_params = [TEST_MODULE, env_path.as_posix(), "--overwrite-values", "--exact"]
     runner.invoke(app, input_params)
     mock_shutil.assert_not_called()
     new_content = env_path.read_text()

@@ -85,6 +85,6 @@ def resolve_env_vars_combination(
     for field_name, default_value in src_env_vars.items():
         field_name_upper = field_name.upper()
         if exact_match or overwrite_values or field_name_upper not in combined_env_vars:
-            combined_env_vars[field_name_upper] = default_value
+            combined_env_vars[field_name_upper] = str(default_value)
 
     return combined_env_vars
