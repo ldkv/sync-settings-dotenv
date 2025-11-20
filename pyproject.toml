@@ -10,7 +10,7 @@ requires-python = ">=3.11"
 dependencies = ["pydantic-settings>=2.12.0", "typer>=0.20.0"]
 
 [dependency-groups]
-dev = ["pyrefly==0.42.1", "pytest==9.0.1", "ruff==0.14.5"]
+dev = ["pyrefly==0.42.2", "pytest==9.0.1", "ruff==0.14.5"]
 
 [project.scripts]
 sync-settings-dotenv = "sync_settings_dotenv.main:app"
@@ -35,4 +35,6 @@ select = ["E4", "E7", "E9", "F", "C", "Q", "B", "A", "PL", "I", "RET"]
 max-complexity = 10
 
 [tool.pyrefly]
-project-includes = ["**/*.py*"]
+untyped-def-behavior = "check-and-infer-return-type"
+ignore-missing-source = false
+ignore-errors-in-generated-code = false
