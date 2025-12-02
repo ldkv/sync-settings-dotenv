@@ -6,7 +6,9 @@ from inspect import isclass
 from pathlib import Path
 from typing import Type
 
+import pydantic.types
 from dotenv import dotenv_values
+from pydantic.fields import FieldInfo
 from pydantic_settings import BaseSettings
 from rich import print as rprint
 
@@ -37,7 +39,13 @@ def import_class_from_module(module_path: str) -> Type[BaseSettings]:
 
 def generate_env_vars_from_class(settings_model: Type[BaseSettings]) -> EnvVarsDict:
     default_env_vars = {}
+    secret_env_vars = {}
     for field_name, field_info in settings_model.model_fields.items():
+        secret_value = process_secret_field(field_info)
+        if secret_value is not None:
+            secret_env_vars[field_name] = secret_value
+            continue
+
         default_value = REQUIRED_PLACEHOLDER
         if not field_info.is_required():
             default_value = field_info.get_default(call_default_factory=True)
@@ -46,7 +54,30 @@ def generate_env_vars_from_class(settings_model: Type[BaseSettings]) -> EnvVarsD
     # Using model_construct to avoid validation for required fields
     default_instance = settings_model.model_construct(**default_env_vars)
     # Using mode="json" to get serialized values
-    return default_instance.model_dump(mode="json")
+    serialized_instance = default_instance.model_dump(mode="json")
+    # Populate default secret values
+    for key, value in secret_env_vars.items():
+        serialized_instance[key] = value
+
+    return serialized_instance
+
+
+def process_secret_field(field_info: FieldInfo) -> str | None:
+    if (
+        field_info.exclude
+        or not isclass(field_info.annotation)
+        or not issubclass(field_info.annotation, (pydantic.types._SecretField))
+    ):
+        return None
+
+    secret_value = REQUIRED_PLACEHOLDER
+    if isinstance(field_info.default, pydantic.types._SecretField):
+        secret_value = field_info.default.get_secret_value()
+
+    if isinstance(secret_value, bytes):
+        secret_value = secret_value.decode("utf-8")
+
+    return secret_value
 
 
 def generate_current_time() -> datetime:
