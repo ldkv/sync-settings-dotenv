@@ -1,4 +1,3 @@
-import importlib.metadata
 from pathlib import Path
 from typing import Annotated
 
@@ -6,18 +5,20 @@ import typer
 from dotenv import dotenv_values
 from rich import print as rprint
 
+from sync_settings_dotenv import __version__, package_name
 from sync_settings_dotenv.utils import generate_dotenv_file, generate_source_env_vars, resolve_env_vars_combination
 
-app = typer.Typer(help="A CLI tool to sync environment variables in dotenv files or from Python settings files.")
+app = typer.Typer(
+    no_args_is_help=True,
+    help="A CLI tool to sync environment variables in dotenv files or from Python settings files.",
+)
 
 
 def version_callback(value: bool):
     if not value:
         return
 
-    tool_name = "sync-settings-dotenv"
-    version = importlib.metadata.version(tool_name)
-    print(f"{tool_name} version: {version}")
+    rprint(f"{package_name} version: {__version__}")
     raise typer.Exit()
 
 
@@ -49,7 +50,14 @@ def sync_settings_dotenv(  # noqa: PLR0913
         "--header/--no-header",
         help="Include a header comment in the .env file.",
     ),
-    version: Annotated[bool | None, typer.Option("--version", callback=version_callback, is_eager=True)] = None,
+    version: bool = typer.Option(
+        None,
+        "--version",
+        "-v",
+        help="Show the application's version and exit.",
+        callback=version_callback,
+        is_eager=True,
+    ),
 ):
     """
     Sync environment variables from a source to a target .env file.

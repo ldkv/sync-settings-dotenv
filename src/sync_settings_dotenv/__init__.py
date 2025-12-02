@@ -1,5 +1,7 @@
-from .main import sync_settings_dotenv
+from importlib.metadata import version
 
+package_name = "sync-settings-dotenv"
+__version__ = version(package_name)
 __all__ = [
-    "sync_settings_dotenv",
+    "__version__",
 ]

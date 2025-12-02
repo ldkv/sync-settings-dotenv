@@ -13,6 +13,14 @@ https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+### Changed
+
+- Move version info to `__init__.py`
+
+### Fixed
+
+- Process secret fields of `pydantic-settings` properly
+
 ## [0.2.1] - 2025-11-20
 
 ### Added
