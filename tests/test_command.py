@@ -3,8 +3,8 @@ from enum import Enum
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-from pydantic import Field, field_serializer
-from pydantic_settings import BaseSettings
+from pydantic import Field, SecretBytes, SecretStr, field_serializer
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from typer.testing import CliRunner
 
 from sync_settings_dotenv.main import app
@@ -19,7 +19,8 @@ class ENV(Enum):
 
 
 class DummySettings(BaseSettings):
-    required: datetime
+    model_config = SettingsConfigDict(env_file="tests/.env")
+    required: str
     foo: str = "bar"
     baz: int = 42
     env: ENV = ENV.dev
@@ -28,6 +29,8 @@ class DummySettings(BaseSettings):
     null_value: str | None = None
     excluded_field: str = Field(default="should not appear", exclude=True)
     boolean: bool = True
+    secret_bytes: SecretBytes = SecretBytes(b"supersecret")
+    secret_str: SecretStr
 
     @field_serializer("dt")
     def serialize_dt(self, dt: datetime) -> str:
@@ -44,6 +47,9 @@ class DummySettings(BaseSettings):
         assert "LIST_VALUES=['1', '2', '3']\n" in content
         assert "NULL_VALUE=None\n" in content
         assert "BOOLEAN=True\n" in content
+        assert "SECRET_BYTES=supersecret\n" in content
+        assert "SECRET_STR=<required>\n" in content
+
         assert "EXCLUDED_FIELD" not in content
 
 
