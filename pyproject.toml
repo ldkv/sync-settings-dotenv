@@ -1,6 +1,6 @@
 [project]
 name = "sync-settings-dotenv"
-version = "0.2.1"
+version = "0.2.2"
 authors = [{ name = "Vu LE", email = "ledkvu@gmail.com" }]
 description = "A CLI tool to export environment variables from Python settings files."
 readme = "README.md"
